@@ -1,0 +1,47 @@
+<view class="container">
+  <view class="title">公众号排版表单</view>
+
+  <form bindsubmit="onSubmit" class="form">
+    <view class="form-item">
+      <text class="label" style="font-size: 21rpx;">提醒：请认真填写，隐私受到保护，仅用于公众号排版招聘！</text>
+    </view>
+    <!-- 姓名 -->
+    <view class="form-item">
+      <text class="label">1. 自己公众号文章排版作品链接：</text>
+      <input name="link" placeholder="请输入作品链接" class="input"/>
+    </view>
+
+    <!-- 微信 -->
+    <view class="form-item">
+      <text class="label">2. 自己邮箱：</text>
+      <input name="mail" placeholder="请自己的邮箱" class="input"/>
+    </view>
+
+    <!-- 城市 -->
+    <view class="form-item">
+      <text class="label">3. 目前所在地方：</text>
+      <input name="city" placeholder="请输地方" class="input"/>
+    </view>
+
+    <view class="form-item">
+  <text class="label">4. 职业：</text>
+  <view class="job-switch">
+    <button bindtap="setJob" data-job="学生" class="{{jobIndex==0?'selected':'unselected'}}">学生</button>
+    <button bindtap="setJob" data-job="已工作" class="{{jobIndex==1?'selected':'unselected'}}">已工作</button>
+  </view>
+</view>
+    <!-- 期望排版文章费用 -->
+    <view class="form-item">
+      <text class="label">5. 排版一篇文章期望费用：</text>
+      <input name="feiyong" type="number" placeholder="请输入金额" class="input"/>
+    </view>
+
+  
+<!-- 提交按钮 -->
+<button formType="submit" class="submit-btn">提交</button>
+  </form>
+  <!-- <view class="logs">
+    <text>提交日志：</text>
+    <view wx:for="{{logs}}" wx:key="index">{{item}}</view>
+  </view> -->
+</view>

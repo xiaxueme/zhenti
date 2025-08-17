@@ -1,0 +1,116 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40rpx 20rpx;
+  font-family: Arial, sans-serif;
+  background-color: #f7f7f7;
+}
+
+.title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.form {
+  width: 90%;
+  background-color: #ffffff;
+  padding: 30rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.1);
+}
+
+.form-item {
+  margin-bottom: 20rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #666666;
+  margin-bottom: 8rpx;
+}
+
+.input, .picker {
+  border: 1rpx solid #cccccc;
+  border-radius: 8rpx;
+  padding: 10rpx;
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.picker {
+  height: 44rpx;
+  line-height: 44rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  background-color: #1AAD19;
+  color: #ffffff;
+  font-size: 30rpx;
+  text-align: center;
+  padding: 12rpx 0;
+  border-radius: 10rpx;
+  margin-top: 20rpx;
+}
+
+.logs {
+  margin-top: 30rpx;
+  width: 90%;
+  color: #999999;
+  font-size: 24rpx;
+}
+.job-switch {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10rpx;
+}
+
+.job-switch button {
+  flex: 1;
+  margin: 0 10rpx;
+  padding: 10rpx 0;
+  font-size: 28rpx;
+  border-radius: 10rpx;
+  border: 1rpx solid #ccc;
+  background-color: #f7f7f7;
+  color: #333;
+}
+
+.job-switch button.selected {
+  background-color: #1AAD19;
+  color: #fff;
+  border: none;
+}
+
+.job-switch button.unselected {
+  background-color: #f7f7f7;
+  color: #333;
+  border: 1rpx solid #ccc;
+}
+
+.time-pickers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10rpx;
+  gap: 10rpx; /* 两框间隔 */
+}
+
+.time-picker-container {
+  flex: 1; /* 平分宽度 */
+}
+.time-picker-view {
+  width: 100%;
+  text-align: center;
+  border: 1rpx solid #ccc;
+  border-radius: 8rpx;
+  padding: 10rpx 0;
+  font-size: 28rpx;
+  background-color: #fff;
+  flex:1;
+}
