@@ -77,9 +77,8 @@ Page({
       }
     })
   },
-
-  // 广告逻辑封装
-  triggerAdAndSubmit(formData) {
+   // 广告逻辑封装
+   triggerAdAndSubmit(formData) {
     if (USE_AD && wx.createRewardedVideoAd) {
       if (!this.videoAd) {
         // 创建单例广告
@@ -113,13 +112,16 @@ Page({
       this.submitForm(formData)
     }
   },
-
+submit2(e) {
+    // 提示用户是否观看广告
+    wx.showToast({ title: "轻点左边的绿色提交按钮", icon: "none", duration: 4000 })
+  },
   // 真正提交表单
   submitForm(formData) {
     forms.add({ data: formData })
       .then(res => {
         this.log("提交成功: " + JSON.stringify(res))
-        wx.showToast({ title: "提交成功", icon: "success", duration: 2000 })
+        wx.showToast({ title: "提交成功，静待佳音", icon: "success", duration: 2000 })
 
         this.setData({ 
           noContactStart: "", 
@@ -136,5 +138,10 @@ Page({
         wx.showToast({ title: "提交失败", icon: "none", duration: 2000 })
         this.setData({ isSubmitting: false })
       })
+  },
+  goToDownload() {
+    wx.navigateTo({
+      url: '/pages/download/index', // 跳转到下载页
+    })
   }
 })

@@ -1,13 +1,17 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/example/index"
+    "pages/example/index",
+    "pages/download/index",
+    "pages/fileDetail/index",
+    "pages/upload/index",
+    "pages/mianze/index"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#F6F6F6",
-    "navigationBarTitleText": "公众号排版表单",
+    "navigationBarTitleText": "下载",
     "navigationBarTextStyle": "black"
   },
   "sitemapLocation": "sitemap.json",

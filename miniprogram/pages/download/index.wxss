@@ -1,0 +1,48 @@
+.container {
+  padding: 0;   /* 去掉外层的 padding */
+  background-color: #f8f8f8;
+}
+
+.file-table {
+  /* width: 100%;  占满全屏 */
+  background: #fff;
+  border-radius: 0;  /* 如果你要顶格，可以去掉圆角 */
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+  width: calc(100% - 40rpx);
+  margin: 20rpx;
+  border-radius: 16rpx;
+}
+
+.file-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #eee;
+  font-size: 30rpx;
+}
+
+.file-row:last-child {
+  border-bottom: none;
+}
+
+.header {
+  background: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+.file-name {
+  flex: 1;
+  color: #333;
+  word-break: break-all;
+}
+
+.file-action {
+  color: #4CAF50; /* 绿色操作按钮 */
+  font-size: 28rpx;
+}
+.file-action:active {
+  color: #388E3C;
+}

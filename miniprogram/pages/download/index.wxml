@@ -1,0 +1,33 @@
+<!-- <view class="container">
+  <button bindtap="choosePDF">选择PDF上传</button>
+  <block wx:for="{{pdfList}}" wx:key="fileID">
+    <view class="pdf-item">
+      <text>{{item.name}}</text>
+      <button bindtap="openPDF" data-fileid="{{item.fileID}}">下载</button>
+    </view>
+  </block>
+</view> -->
+<!-- <view class="container">
+  <ad unit-id="adunit-1873d823aba19d0a" ad-type="video" ad-theme="white" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+  <view wx:for="{{fileList}}" wx:key="_id" class="file-item">
+    <view class="file-item" bindtap="goDetail" data-id="{{item._id}}">
+      <text>{{item.name}}</text>
+    </view>
+  </view>
+</view> -->
+
+<view class="container">
+  <ad unit-id="adunit-1873d823aba19d0a" ad-type="video" ad-theme="white" 
+      bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+  <view class="file-table">
+    <view class="file-row header">
+      <text class="file-name">文件名</text>
+      <text class="file-action">操作</text>
+    </view>
+    <view wx:for="{{fileList}}" wx:key="_id" class="file-row">
+      <text class="file-name">{{item.name}}</text>
+      <text class="file-action" bindtap="goDetail" data-id="{{item._id}}">查看</text>
+    </view>
+  </view>
+  <ad-custom unit-id="adunit-4cfc11b22fad4af0" bindload="adLoad" binderror="adError" bindclose="adClose"></ad-custom>
+</view>

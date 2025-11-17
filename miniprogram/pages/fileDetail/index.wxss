@@ -1,0 +1,150 @@
+.container {
+  padding: 10rpx;
+  background-color: #f5f6f7;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+/* 加载提示 */
+.loading {
+  text-align: center;
+  font-size: 32rpx;
+  color: #888;
+  padding: 80rpx 0;
+}
+
+/* 文件详情卡片 */
+.detail-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 10rpx 10rpx;
+  padding-bottom: 40rpx;
+  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.08);
+  width: 96%;
+}
+
+/* 文件标题 */
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin: 20rpx 0 40rpx;
+  display: block;
+  text-align: center;
+}
+
+/* 按钮通用样式 */
+.btn {
+  width: 100%;
+  margin-top: 20rpx;
+  padding: 20rpx 0;
+  border-radius: 12rpx;
+  font-size: 32rpx;
+  font-weight: 500;
+}
+
+/* 主按钮（绿色） */
+.primary-btn {
+  background-color: #07c160; /* 微信绿色 */
+  color: #fff;
+  border: none;
+}
+/* 按钮和文件大小在一行 */
+.btn-inline {
+  display: flex;
+  align-items: center;
+  margin-top: 20rpx;
+}
+/* 文件大小样式 */
+.file-size {
+  /* margin-left: 16rpx; */
+  font-size: 26rpx;  /* 小一号 */
+  color: #888;       /* 灰色，弱化显示 */
+  position: relative;
+  left: -90rpx;
+}
+/* 次按钮（灰色边框） */
+.secondary-btn {
+  background-color: #fff;
+  border: 2rpx solid #ddd;
+  color: #333;
+}
+
+/* 分享提示 */
+.share-tips {
+  margin-top: 40rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #999;
+}
+.container {
+  padding: 20rpx;
+  background: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* 文件名标题 */
+.title {
+  font-size: 40rpx;      /* 大号字体 */
+  font-weight: bold;     /* 加粗 */
+  text-align: center;    /* 居中 */
+  color: #333;
+  margin: 30rpx 0;       /* 上下间距 */
+  width: 100%;           /* 占满全屏 */
+  background: #fff;      /* 白底 */
+  padding: 20rpx 0rpx;
+  border-radius: 12rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.08);
+}
+
+/* 按钮统一样式 */
+.btn {
+  display: block;
+  width: 90%;
+  margin: 20rpx auto;
+  font-size: 32rpx;
+  border-radius: 12rpx;
+  padding: 12rpx 0;
+}
+
+/* 分享提示 */
+.share-tips {
+  margin-top: 40rpx;
+  text-align: center;
+  color: #888;
+  font-size: 26rpx;
+}
+
+
+.disclaimer {
+  margin-top: -10rpx;
+  text-align: center;
+  margin-bottom: -30rpx;
+
+}
+
+.disclaimer text {
+  color: #1677ff;   /* 蓝色 */
+  font-size: 28rpx;
+  font-weight: 500;
+}
+.info-bar {
+  display: flex;
+  justify-content: center; /* 左右分布 */
+  align-items: center;
+  padding: 0 20rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.download-count {
+  color: #333;
+  position: relative;
+  top: 10rpx;
+  right: 110rpx;
+}
+
+.disclaimer {
+  color: #1E90FF; /* 蓝色 */
+  text-decoration: underline;
+}

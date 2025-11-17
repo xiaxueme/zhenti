@@ -1,0 +1,20 @@
+.container {
+  padding: 20rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1976d2; /* 蓝色标题 */
+  text-align: center;
+  margin-bottom: 20rpx;
+}
+
+.content {
+  height: 80vh; /* 可滚动区域 */
+  font-size: 28rpx;
+  line-height: 1.8;
+  color: #333;
+  padding: 10rpx;
+  box-sizing: border-box;
+}

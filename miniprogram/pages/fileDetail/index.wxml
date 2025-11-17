@@ -1,0 +1,42 @@
+<view class="container">
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading">加载中...</view>
+  <!-- 文件详情 -->
+  <view wx:else class="detail-card">
+    <!-- 广告位 -->
+    <ad-custom unit-id="adunit-4cfc11b22fad4af0"
+      bindload="adLoad"
+      binderror="adError"
+      bindclose="adClose"></ad-custom>
+    <!-- 文件名 -->
+    <text class="title">{{file.name}}</text>
+    <ad unit-id="adunit-1873d823aba19d0a"
+      ad-type="video"
+      ad-theme="white"
+      bindload="adLoad"
+      binderror="adError"
+      bindclose="adClose"></ad>
+    <!-- 下载按钮 -->
+    <view class="btn-inline">
+    <button bindtap="downloadFile" type="primary" class="btn primary-btn">
+      下载并打开文件
+    </button>
+    <text class="file-size">{{fileSizeText}}</text>
+  </view>
+    <!-- 复制文件链接 -->
+    <!-- <button bindtap="copyLink" type="default" class="btn secondary-btn">
+      复制文件链接
+    </button> -->
+    <!-- 转发提示 -->
+    <view class="info-bar">
+  <text class="download-count" >下载次数：{{file.downloadCount || 0}}</text>
+  <view class="disclaimer" bindtap="goDisclaimer">
+    <text>免责声明</text>
+  </view>
+</view>
+
+    <view class="share-tips">
+      <text>点击右上角 ··· 可以分享此文件给朋友</text>
+    </view>
+  </view>
+</view>

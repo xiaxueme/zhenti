@@ -1,26 +1,24 @@
 <view class="container">
-  <view class="title">公众号排版表单</view>
-
-  <form bindsubmit="onSubmit" class="form">
+  <view class="title">公众号排版表单</view> 
+  <ad unit-id="adunit-1873d823aba19d0a" ad-type="video" ad-theme="white" 
+      bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+<form bindsubmit="onSubmit" class="form">
     <view class="form-item">
       <text class="label" style="font-size: 21rpx;">提醒：请认真填写，隐私受到保护，仅用于公众号排版招聘！</text>
     </view>
-    <!-- 姓名 -->
     <view class="form-item">
       <text class="label">1. 自己公众号文章排版作品链接：</text>
       <input name="link" placeholder="请输入作品链接" class="input"/>
     </view>
 
-    <!-- 微信 -->
     <view class="form-item">
-      <text class="label">2. 自己邮箱：</text>
+      <text class="label">2. 自己的邮箱：</text>
       <input name="mail" placeholder="请自己的邮箱" class="input"/>
     </view>
 
-    <!-- 城市 -->
     <view class="form-item">
       <text class="label">3. 目前所在地方：</text>
-      <input name="city" placeholder="请输地方" class="input"/>
+      <input name="city" placeholder="请输入目前所在地方" class="input"/>
     </view>
 
     <view class="form-item">
@@ -30,18 +28,21 @@
     <button bindtap="setJob" data-job="已工作" class="{{jobIndex==1?'selected':'unselected'}}">已工作</button>
   </view>
 </view>
-    <!-- 期望排版文章费用 -->
     <view class="form-item">
       <text class="label">5. 排版一篇文章期望费用：</text>
       <input name="feiyong" type="number" placeholder="请输入金额" class="input"/>
     </view>
+<view style="display: flex;">
+  <button formType="submit" class="submit-btn" style="width: 45%;">提交</button>
+  <button bindtap="submit2" class="submit-btn" style="width: 45%;background-color: #999;font-size: 20rpx;    line-height: 46rpx;height: 66rpx;">免费提交</button>
+</view>
 
-  
-<!-- 提交按钮 -->
-<button formType="submit" class="submit-btn">提交</button>
   </form>
-  <!-- <view class="logs">
-    <text>提交日志：</text>
-    <view wx:for="{{logs}}" wx:key="index">{{item}}</view>
-  </view> -->
+ 
+  <ad-custom unit-id="adunit-4cfc11b22fad4af0" bindload="adLoad" binderror="adError" bindclose="adClose"></ad-custom>
+  <view class="container">
+  <button bindtap="goToDownload" class="download-btn">点击查看所有的文件列表</button>
+</view>
+
+
 </view>

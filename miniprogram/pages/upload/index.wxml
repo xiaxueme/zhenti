@@ -1,0 +1,7 @@
+<view class="container">
+   <button bindtap="chooseFile">上传文件</button>
+   <view wx:if="{{isUploading}}" wx:for="{{uploadList}}" wx:key="name">
+  <text>{{item.name}} - {{item.status}}</text>
+  <progress percent="{{item.progress}}" show-info active></progress>
+</view>
+</view>
