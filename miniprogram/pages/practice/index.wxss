@@ -5,3 +5,12 @@
 .controls { margin-top: 16px; }
 .status { margin-top: 12px; color: #666; }
 textarea { width: 100%; height: 100px; border: 1px solid #ddd; padding: 8px; }
+
+.progress { display:flex; align-items:center; gap:8rpx; margin-bottom:12px; }
+.progress-bar { flex:1; height:8rpx; background:#eee; border-radius:4rpx; overflow:hidden }
+.progress-fill { height:100%; background: linear-gradient(90deg,#4caf50,#8bc34a); }
+.progress-text { width:60rpx; text-align:right; color:#666 }
+.feedback { color:#666; margin-left:8rpx }
+.result { padding:4rpx 8rpx; border-radius:6rpx; color:#fff; font-size:12rpx }
+.result.correct { background:#4caf50 }
+.result.wrong { background:#f44336 }

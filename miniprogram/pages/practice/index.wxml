@@ -1,5 +1,9 @@
 <view class="container">
   <view class="header">刷题</view>
+  <view class="progress">
+    <view class="progress-bar"><view class="progress-fill" style="width: {{progressPercent}}%;"></view></view>
+    <view class="progress-text">{{currentIndex+1}} / {{questions.length}}</view>
+  </view>
 
   <view class="question">
     <view class="q-title">{{currentIndex+1}}. {{current.title}}</view>
@@ -34,8 +38,12 @@
     <button bindtap="next">下一题</button>
   </view>
 
-  <view style="margin-top:12px;">
+  <view style="margin-top:12px; display:flex; gap:8rpx; align-items:center;">
     <button bindtap="finishQuiz">完成并评分</button>
+    <view class="feedback">{{statusText}}</view>
+    <block wx:if="{{results[currentIndex]!==undefined}}">
+      <view class="result {{results[currentIndex] ? 'correct' : 'wrong'}}">{{results[currentIndex] ? '正确' : '错误'}}</view>
+    </block>
   </view>
 
   <view class="status">{{statusText}}</view>

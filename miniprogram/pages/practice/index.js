@@ -10,14 +10,18 @@ Page({
     selected: null,
     selectedMultiple: [],
     answerText: '',
-    statusText: ''
+    statusText: '',
+    answers: {},
+    results: {},
+    progressPercent: 0
   },
   onLoad() {
     this.updateCurrent()
   },
   updateCurrent() {
     const current = this.data.questions[this.data.currentIndex]
-    this.setData({ current, statusText: '' })
+    const percent = Math.round((Object.keys(this.data.answers).length / this.data.questions.length) * 100)
+    this.setData({ current, statusText: '', progressPercent: percent || 0 })
   },
   onSelect(e) {
     const val = e.detail.value
@@ -56,8 +60,25 @@ Page({
       userAns = this.data.answerText
     }
     const answers = this.data.answers || {}
+    const results = this.data.results || {}
     answers[i] = userAns
-    this.setData({ answers, statusText: '已保存本题答案' })
+
+    // 立即判题（简答题不判）
+    if (q.type === 'single') {
+      results[i] = (Number(userAns) === q.answer)
+    } else if (q.type === 'multiple') {
+      const a = Array.isArray(q.answer) ? q.answer.slice().sort().join(',') : ''
+      const u = Array.isArray(userAns) ? userAns.slice().sort().join(',') : ''
+      results[i] = (a === u)
+    } else if (q.type === 'judgment') {
+      const boolUser = (userAns === 'true' || userAns === true)
+      results[i] = (boolUser === q.answer)
+    } else if (q.type === 'text') {
+      results[i] = null
+    }
+
+    const percent = Math.round((Object.keys(answers).length / this.data.questions.length) * 100)
+    this.setData({ answers, results, statusText: '已保存本题答案', progressPercent: percent || 0 })
   },
 
   finishQuiz() {
@@ -80,6 +101,8 @@ Page({
         if (user && user.trim().length > 0) score += 0 // 简答题不计分，仅记录
       }
     })
-    this.setData({ statusText: `评分完成：${score}/${total}` })
+    const resultText = `评分完成：${score}/${total}`
+    this.setData({ statusText: resultText })
+    wx.showModal({ title: '测验结果', content: resultText, showCancel: false })
   }
 })
