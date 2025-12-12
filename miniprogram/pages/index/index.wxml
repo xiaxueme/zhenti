@@ -41,7 +41,7 @@
  
   <ad-custom unit-id="adunit-4cfc11b22fad4af0" bindload="adLoad" binderror="adError" bindclose="adClose"></ad-custom>
   <view class="container">
-  <button bindtap="goToDownload" class="download-btn">点击查看所有的文件列表</button>
+  <button bindtap="goToDownload" class="download-btn">点击查看文件列表</button>
 </view>
 
 

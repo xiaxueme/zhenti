@@ -1,20 +1,38 @@
 ﻿# 项目说明  公众号排版资源小程序
+本仓库是一个基于微信小程序 + 云开发（Cloud Functions / 存储）的示例项目，
 
-本仓库是一个基于微信小程序 + 云开发（Cloud Functions / 存储）的示例项目，用于收集公众号排版作品、展示与下载排版资源，并提供上传 PDF 与下载统计的后端云函数支持。
+# 前端
+- 首页是用于收集公众号排版作品表单、提交表单可以传到云服务器的云数据库，云数据库名称是forms
+- 首页有一个点击查看所有的文件列表按钮，该按钮跳转到download/index页面
+- download：文件列表页面，点击文件列表里面的每个文件查看按钮跳转到文件详情页面
+- fileDetail：文件详情页面，点击下载并打开文件即可打开文件，免责声明按钮是跳转到免责声明页面
+- mianze：免责声明页面
+- upload：文件上传页面，点击上传文件，可以上传电脑本地任何文件到云服务器，数据库是pdfFiles
 
-该项目包含小程序前端代码（页面、组件、样式、配置）和若干云函数（处理文件上传、下载计数等），适合用于演示或作为小型工具的起点。
+# 云服务器：
+- 环境名称：cloud1
+- 环境ID：git@github.com:xiaxueme/thinking-map.git 
 
-## 主要功能
-- 表单提交：用户可提交作品链接、邮箱、所在城市、职业、期望费用等信息（位于首页）。
-- 文件列表：在小程序内查看并下载所有可用资源（含下载计数统计）。
-- 上传 PDF：支持将 PDF 上传到云存储的云函数实现。
-- 下载统计：通过云函数记录并增长文件下载次数。
-- 广告位：页面中嵌入了广告组件以便商业化展示。
+- 线上giuhub项目仓库地址：
+- https://github.com/xiaxueme/zhenti
+- git@github.com:xiaxueme/zhenti.git 
 
-## 仓库结构（简要）
+## 功能
+- 首页表单提交：用户可提交作品链接、邮箱、所在城市、职业、期望费用。
+- 文件列表：download文件夹，在小程序内查看并下载所有可用资源（含下载计数统计）。
+- 文件详情页：fileDetail文件夹，文件详情页面，点击下载并打开文件即可打开文件，免责声明按钮是跳转到免责声明页面。
+- 上传文件：upload文件夹，文件上传页面，点击上传文件，可以上传电脑本地任何文件到云服务器，数据库是pdfFiles
+- 免责声明：mianze文件夹，免责声明页面
+- 下载统计功能：通过云函数记录并增长文件下载次数。
+- 广告位展示功能：页面中嵌入了广告组件以便商业化展示。
+
+## 仓库结构
 - miniprogram/: 小程序前端代码（页面、组件、样式、配置）。
-  - pages/index/: 首页表单（index.wxml、index.js 等）。
-  - pages/download/: 文件列表/下载页面。
+  - pages/index/: 首页表单（index.wxml、index.js 、index.wxss、index.json）。
+  - pages/download/: 文件列表页面（index.wxml、index.js 、index.wxss、index.json）。
+  - pages/fileDetail/：文件详情页面（index.wxml、index.js 、index.wxss、index.json）。
+  - pages/upload/：文件上传页面（index.wxml、index.js 、index.wxss、index.json）。
+  - pages/mianze/：免责声明页面（index.wxml、index.js 、index.wxss、index.json）。
   - envList.js：云环境配置文件。
 - cloudfunctions/: 云函数目录
   - uploadPDF/: 处理 PDF 上传的云函数。
