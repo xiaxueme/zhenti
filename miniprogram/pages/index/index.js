@@ -144,4 +144,8 @@ submit2(e) {
       url: '/pages/download/index', // 跳转到下载页
     })
   }
+
+  ,goToQuestionBank() {
+    wx.navigateTo({ url: '/pages/questionBank/index' })
+  }
 })
