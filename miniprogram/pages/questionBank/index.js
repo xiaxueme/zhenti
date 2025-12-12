@@ -5,8 +5,34 @@ Page({
       { title: '多选：下列哪些是前端框架？' },
       { title: '判断：HTML 是编程语言。' },
       { title: '简答：简述 MVC 模式。' }
-    ]
+    ],
+    loading: false
   },
+
+  onLoad() {
+    // 优先从云数据库加载题目；若未配置云环境或读取失败，回退到内置示例
+    if (!wx.cloud) {
+      this.setData({ loading: false })
+      return
+    }
+    this.setData({ loading: true })
+    const db = wx.cloud.database()
+    db.collection('questions').get()
+      .then(res => {
+        if (res && res.data && res.data.length) {
+          // 将云端数据映射为页面显示结构
+          const items = res.data.map(item => ({ title: item.title || (item.type + '：无标题') }))
+          this.setData({ examples: items })
+        }
+        this.setData({ loading: false })
+      })
+      .catch(err => {
+        console.error('加载题库失败', err)
+        wx.showToast({ title: '加载题库失败，使用本地示例', icon: 'none' })
+        this.setData({ loading: false })
+      })
+  },
+
   goToPractice() {
     wx.navigateTo({ url: '/pages/practice/index' })
   },
