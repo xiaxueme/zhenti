@@ -16,7 +16,42 @@ Page({
     progressPercent: 0
   },
   onLoad() {
-    this.updateCurrent()
+    // 尝试从云数据库加载题目，若失败使用内置示例
+    if (wx.cloud) {
+      try {
+        const db = wx.cloud.database()
+        db.collection('questions').get()
+          .then(res => {
+            if (res && res.data && res.data.length) {
+              // 规范化云端题目格式
+              const qs = res.data.map(item => {
+                const q = Object.assign({}, item)
+                q.type = q.type || 'single'
+                q.title = q.title || (q.type + '：无标题')
+                q.options = Array.isArray(q.options) ? q.options : []
+                // 保证 answer 格式
+                if (q.type === 'single') q.answer = (typeof q.answer === 'number') ? q.answer : Number(q.answer) || 0
+                if (q.type === 'multiple') q.answer = Array.isArray(q.answer) ? q.answer.map(Number) : []
+                if (q.type === 'judgment') q.answer = (q.answer === true || q.answer === 'true')
+                if (q.type === 'text') q.answer = q.answer || ''
+                return q
+              })
+              this.setData({ questions: qs }, this.updateCurrent)
+              return
+            }
+            this.updateCurrent()
+          })
+          .catch(err => {
+            console.error('从云加载题目失败', err)
+            this.updateCurrent()
+          })
+      } catch (e) {
+        console.error(e)
+        this.updateCurrent()
+      }
+    } else {
+      this.updateCurrent()
+    }
   },
   updateCurrent() {
     const current = this.data.questions[this.data.currentIndex]
