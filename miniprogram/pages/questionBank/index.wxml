@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="header">题库</view>
+  <button bindtap="goToPractice" class="btn">题目列表</button>
+  <view class="examples">
+    <block wx:for="{{examples}}" wx:key="index">
+      <view class="item">{{index+1}}. {{item.title}}</view>
+    </block>
+  </view>
+</view>

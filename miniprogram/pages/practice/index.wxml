@@ -1,0 +1,35 @@
+<view class="container">
+  <view class="header">刷题</view>
+
+  <view class="question">
+    <view class="q-title">{{currentIndex+1}}. {{current.title}}</view>
+    <block wx:if="{{current.type==='single'}}">
+      <radio-group bindchange="onSelect">
+        <block wx:for="{{current.options}}" wx:key="idx">
+          <label class="option"><radio value="{{idx}}" /> {{item}}</label>
+        </block>
+      </radio-group>
+    </block>
+    <block wx:if="{{current.type==='multiple'}}">
+      <block wx:for="{{current.options}}" wx:key="idx">
+        <label class="option"><checkbox value="{{idx}}" /> {{item}}</label>
+      </block>
+    </block>
+    <block wx:if="{{current.type==='judgment'}}">
+      <radio-group bindchange="onSelect">
+        <label class="option"><radio value="true" /> 正确</label>
+        <label class="option"><radio value="false" /> 错误</label>
+      </radio-group>
+    </block>
+    <block wx:if="{{current.type==='text'}}">
+      <textarea placeholder="请输入你的答案" bindinput="onInput" value="{{answerText}}"></textarea>
+    </block>
+  </view>
+
+  <view class="controls">
+    <button bindtap="prev">上一题</button>
+    <button bindtap="next">下一题</button>
+  </view>
+
+  <view class="status">{{statusText}}</view>
+</view>
