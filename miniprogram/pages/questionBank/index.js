@@ -10,18 +10,20 @@ Page({
   },
 
   onLoad() {
-    // 优先从云数据库加载题目；若未配置云环境或读取失败，回退到内置示例
+    // 通过云函数读取题库，避免客户端 DB 权限限制
     if (!wx.cloud) {
       this.setData({ loading: false })
       return
     }
     this.setData({ loading: true })
-    const db = wx.cloud.database()
-    db.collection('questions').get()
+    wx.cloud.callFunction({ name: 'getQuestions' })
       .then(res => {
-        if (res && res.data && res.data.length) {
-          // 将云端数据映射为页面显示结构
-          const items = res.data.map(item => ({ title: item.title || (item.type + '：无标题') }))
+        const result = res && res.result
+        if (result && result.success && Array.isArray(result.data) && result.data.length) {
+          const items = result.data.map((item, idx) => ({
+            title: item.title || (item.type + '：无标题'),
+            _idx: idx
+          }))
           this.setData({ examples: items })
         }
         this.setData({ loading: false })
@@ -35,6 +37,11 @@ Page({
 
   goToPractice() {
     wx.navigateTo({ url: '/pages/practice/index' })
+  },
+
+  goToPracticeIndex(e) {
+    const idx = e.currentTarget.dataset.index || 0
+    wx.navigateTo({ url: '/pages/practice/index?start=' + idx })
   },
 
   uploadSamples() {

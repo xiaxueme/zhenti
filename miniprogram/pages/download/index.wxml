@@ -7,8 +7,8 @@
     </view>
   </block>
 </view> -->
-<!-- <view class="container">
-  <ad unit-id="adunit-1873d823aba19d0a" ad-type="video" ad-theme="white" bindload="adLoad" binderror="adError" bindclose="adClose"></ad>
+<view class="container">
+  <!-- 广告组件已移除（本地调试用），若需上线请恢复该标签 -->
   <view wx:for="{{fileList}}" wx:key="_id" class="file-item">
     <view class="file-item" bindtap="goDetail" data-id="{{item._id}}">
       <text>{{item.name}}</text>
@@ -29,5 +29,5 @@
       <text class="file-action" bindtap="goDetail" data-id="{{item._id}}">查看</text>
     </view>
   </view>
-  <ad-custom unit-id="adunit-4cfc11b22fad4af0" bindload="adLoad" binderror="adError" bindclose="adClose"></ad-custom>
+  <!-- 自定义广告组件已移除（本地调试用），若需上线请恢复该标签 -->
 </view>

@@ -1,3 +1,118 @@
+/* 精简、现代风格的练习页面样式 */
+page {
+  background: #f6f7fb;
+}
+.container {
+  padding: 24rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', Arial;
+  color: #222;
+}
+.header {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 18rpx;
+}
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 18rpx;
+}
+.progress-bar {
+  flex: 1;
+  height: 14rpx;
+  background: #e9eef8;
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg,#4facfe,#00f2fe);
+}
+.progress-text {
+  width: 120rpx;
+  font-size: 24rpx;
+  color: #666;
+}
+.question {
+  background: #fff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  box-shadow: 0 6rpx 18rpx rgba(31,47,70,0.06);
+  margin-bottom: 18rpx;
+}
+.q-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+.option {
+  display: block;
+  padding: 14rpx 12rpx;
+  border-radius: 8rpx;
+  background: #fbfdff;
+  margin-bottom: 10rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+.option radio, .option checkbox {
+  margin-right: 10rpx;
+}
+.controls {
+  display: flex;
+  gap: 12rpx;
+  justify-content: space-between;
+  margin-bottom: 12rpx;
+}
+.controls button {
+  flex: 1;
+  height: 64rpx;
+  line-height: 64rpx;
+  border-radius: 10rpx;
+  border: none;
+  background: #4facfe;
+  color: #fff;
+  font-size: 26rpx;
+}
+.controls button.secondary {
+  background: #fff;
+  color: #4facfe;
+  border: 1rpx solid #e6f0ff;
+}
+.feedback {
+  font-size: 26rpx;
+  color: #444;
+}
+.result {
+  display: inline-block;
+  padding: 6rpx 10rpx;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  margin-left: 8rpx;
+}
+.result.correct { background: rgba(46, 204, 113, 0.12); color: #2ecc71; }
+.result.wrong { background: rgba(255, 99, 71, 0.12); color: #ff6347; }
+.answer-reveal {
+  margin-top: 12rpx;
+  padding: 12rpx;
+  border-radius: 8rpx;
+  background: #f7fbff;
+  font-size: 26rpx;
+  color: #2b7be4;
+}
+textarea {
+  min-height: 160rpx;
+  padding: 12rpx;
+  border-radius: 8rpx;
+  border: 1rpx solid #eef6ff;
+  font-size: 26rpx;
+}
+.status {
+  margin-top: 10rpx;
+  color: #888;
+  font-size: 24rpx;
+}
 .container { padding: 20px; }
 .header { font-size: 20px; font-weight: bold; margin-bottom: 12px; }
 .q-title { font-weight: 600; margin-bottom: 10px; }

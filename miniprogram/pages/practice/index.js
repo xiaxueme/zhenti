@@ -8,53 +8,75 @@ Page({
     ],
     currentIndex: 0,
     selected: null,
-  submitAnswer() {
     selectedMultiple: [],
     answerText: '',
     statusText: '',
     answers: {},
     results: {},
-    progressPercent: 0
+    progressPercent: 0,
+    current: null
   },
-  onLoad() {
-    // 尝试从云数据库加载题目，若失败使用内置示例
+  onLoad(options) {
+    // 支持从列表传入起始题目索引
+    console.log('practice onLoad options:', options)
+    this.setData({ statusText: '准备加载题目...' })
+    if (options && options.start) {
+      const start = Number(options.start) || 0
+      this.setData({ currentIndex: start })
+    }
+    // 使用云函数读取题库（云函数以服务端权限访问 DB，避免客户端权限限制）
     if (wx.cloud) {
-      try {
-        const db = wx.cloud.database()
-        db.collection('questions').get()
-          .then(res => {
-            if (res && res.data && res.data.length) {
-              // 规范化云端题目格式
-              const qs = res.data.map(item => {
-                const q = Object.assign({}, item)
-                q.type = q.type || 'single'
-                q.title = q.title || (q.type + '：无标题')
-                q.options = Array.isArray(q.options) ? q.options : []
-                // 保证 answer 格式
-                if (q.type === 'single') q.answer = (typeof q.answer === 'number') ? q.answer : Number(q.answer) || 0
-                if (q.type === 'multiple') q.answer = Array.isArray(q.answer) ? q.answer.map(Number) : []
-                if (q.type === 'judgment') q.answer = (q.answer === true || q.answer === 'true')
-                if (q.type === 'text') q.answer = q.answer || ''
-                return q
+      wx.cloud.callFunction({ name: 'getQuestions' })
+        .then(res => {
+          console.log('getQuestions raw res:', res)
+          const result = res && res.result
+          if (result && result.success && Array.isArray(result.data) && result.data.length) {
+            const qs = result.data.map(item => {
+              const q = Object.assign({}, item)
+              q.type = q.type || 'single'
+              q.title = q.title || (q.type + '：无标题')
+              q.options = Array.isArray(q.options) ? q.options : []
+              if (q.type === 'single') q.answer = (typeof q.answer === 'number') ? q.answer : Number(q.answer) || 0
+              if (q.type === 'multiple') q.answer = Array.isArray(q.answer) ? q.answer.map(Number) : []
+              if (q.type === 'judgment') q.answer = (q.answer === true || q.answer === 'true')
+              if (q.type === 'text') q.answer = q.answer || ''
+              return q
+            })
+              this.setData({ questions: qs, statusText: `加载到 ${qs.length} 道题` }, () => {
+                // 加载本地缓存答案（如果有）
+                try {
+                  const answers = this.data.answers || {}
+                  const results = this.data.results || {}
+                  qs.forEach((q, idx) => {
+                    const qKey = q._id ? `practice_q_${q._id}` : `practice_idx_${idx}`
+                    const stored = wx.getStorageSync(qKey)
+                    if (stored && stored.answer !== undefined) {
+                      answers[idx] = stored.answer
+                      // 立即判题（简答题不判）
+                      if (q.type === 'single') results[idx] = (Number(stored.answer) === q.answer)
+                      else if (q.type === 'multiple') {
+                        const a = Array.isArray(q.answer) ? q.answer.slice().sort().join(',') : ''
+                        const u = Array.isArray(stored.answer) ? stored.answer.slice().sort().join(',') : ''
+                        results[idx] = (a === u)
+                      } else if (q.type === 'judgment') results[idx] = (stored.answer === 'true' || stored.answer === true) === q.answer
+                    }
+                  })
+                  this.setData({ answers, results })
+                } catch (e) { console.warn('load cache fail', e) }
+                this.updateCurrent()
               })
-              this.setData({ questions: qs }, this.updateCurrent)
-              return
-            }
-            this.updateCurrent()
-          })
-          .catch(err => {
-            console.error('从云加载题目失败', err)
-            const msg = (err && err.message) ? err.message : JSON.stringify(err)
-            wx.showToast({ title: '加载题库失败: ' + (msg.length>50?msg.slice(0,50)+'...':msg), icon: 'none', duration: 4000 })
-            this.setData({ statusText: '加载题库失败，请检查云环境与权限' })
-            this.updateCurrent()
-          })
-      } catch (e) {
-        console.error('从云加载题目异常', e)
-        wx.showToast({ title: '加载题库异常，请查看控制台', icon: 'none', duration: 4000 })
-        this.setData({ statusText: '加载题库异常' })
-        this.updateCurrent()
-      }
+            return
+          }
+          this.setData({ statusText: '未读取到云题目，使用本地示例' })
+          this.updateCurrent()
+        })
+        .catch(err => {
+          console.error('调用云函数 getQuestions 失败', err)
+          const msg = (err && err.message) ? err.message : JSON.stringify(err)
+          wx.showToast({ title: '加载题库失败: ' + (msg.length>50?msg.slice(0,50)+'...':msg), icon: 'none', duration: 4000 })
+          this.setData({ statusText: '加载题库失败，请检查云环境与函数部署' })
+          this.updateCurrent()
+        })
     } else {
       wx.showToast({ title: '未启用云能力，使用本地示例', icon: 'none', duration: 2000 })
       this.setData({ statusText: '未启用云能力，使用本地示例' })
@@ -89,7 +111,7 @@ Page({
     } else {
       this.setData({ statusText: '已完成所有示例题' })
     }
-  }
+  },
 
   submitAnswer() {
     const i = this.data.currentIndex
@@ -105,6 +127,9 @@ Page({
     const answers = this.data.answers || {}
     const results = this.data.results || {}
     answers[i] = userAns
+    // 本地缓存（按题目 id 或索引）
+    const qKey = q._id ? `practice_q_${q._id}` : `practice_idx_${i}`
+    try { wx.setStorageSync(qKey, { answer: userAns, ts: Date.now() }) } catch (e) { console.warn('storage fail', e) }
 
     // 立即判题（简答题不判）
     if (q.type === 'single') {
@@ -121,7 +146,10 @@ Page({
     }
 
     const percent = Math.round((Object.keys(answers).length / this.data.questions.length) * 100)
+    // 显示结果并展示答案
     this.setData({ answers, results, statusText: '已保存本题答案', progressPercent: percent || 0 })
+    // 将判题结果暴露在页面（results 已被赋值）
+    this.setData({ results })
   },
 
   finishQuiz() {

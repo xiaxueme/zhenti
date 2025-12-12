@@ -5,8 +5,9 @@
     <view class="progress-text">{{currentIndex+1}} / {{questions.length}}</view>
   </view>
 
-  <view class="question">
-    <view class="q-title">{{currentIndex+1}}. {{current.title}}</view>
+  <block wx:if="{{current}}">
+    <view class="question">
+      <view class="q-title">{{currentIndex+1}}. {{current.title}}</view>
     <block wx:if="{{current.type==='single'}}">
       <radio-group bindchange="onSelect">
         <block wx:for="{{current.options}}" wx:for-item="opt" wx:for-index="idx" wx:key="idx">
@@ -30,7 +31,25 @@
     <block wx:if="{{current.type==='text'}}">
       <textarea placeholder="请输入你的答案" bindinput="onInput" value="{{answerText}}"></textarea>
     </block>
-  </view>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="question">正在加载题目，请稍候或返回重试</view>
+  </block>
+  <block wx:if="{{results[currentIndex]!==undefined}}">
+    <view class="answer-reveal">
+      <view>本题答案：</view>
+      <block wx:if="{{current.type==='single' || current.type==='multiple'}}">
+        <view>{{formatOptions(current.options, current.answer)}}</view>
+      </block>
+      <block wx:if="{{current.type==='judgment'}}">
+        <view>{{current.answer ? '正确' : '错误'}}</view>
+      </block>
+      <block wx:if="{{current.type==='text'}}">
+        <view>{{current.answer || '（无标准答案）'}}</view>
+      </block>
+    </view>
+  </block>
 
   <view class="controls">
     <button bindtap="prev">上一题</button>
