@@ -8,6 +8,7 @@ Page({
     ],
     currentIndex: 0,
     selected: null,
+  submitAnswer() {
     selectedMultiple: [],
     answerText: '',
     statusText: '',
@@ -43,13 +44,20 @@ Page({
           })
           .catch(err => {
             console.error('从云加载题目失败', err)
+            const msg = (err && err.message) ? err.message : JSON.stringify(err)
+            wx.showToast({ title: '加载题库失败: ' + (msg.length>50?msg.slice(0,50)+'...':msg), icon: 'none', duration: 4000 })
+            this.setData({ statusText: '加载题库失败，请检查云环境与权限' })
             this.updateCurrent()
           })
       } catch (e) {
-        console.error(e)
+        console.error('从云加载题目异常', e)
+        wx.showToast({ title: '加载题库异常，请查看控制台', icon: 'none', duration: 4000 })
+        this.setData({ statusText: '加载题库异常' })
         this.updateCurrent()
       }
     } else {
+      wx.showToast({ title: '未启用云能力，使用本地示例', icon: 'none', duration: 2000 })
+      this.setData({ statusText: '未启用云能力，使用本地示例' })
       this.updateCurrent()
     }
   },
