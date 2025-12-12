@@ -5,15 +5,17 @@
     <view class="q-title">{{currentIndex+1}}. {{current.title}}</view>
     <block wx:if="{{current.type==='single'}}">
       <radio-group bindchange="onSelect">
-        <block wx:for="{{current.options}}" wx:key="idx">
-          <label class="option"><radio value="{{idx}}" /> {{item}}</label>
+        <block wx:for="{{current.options}}" wx:for-item="opt" wx:for-index="idx" wx:key="idx">
+          <label class="option"><radio value="{{idx}}" /> {{opt}}</label>
         </block>
       </radio-group>
     </block>
     <block wx:if="{{current.type==='multiple'}}">
-      <block wx:for="{{current.options}}" wx:key="idx">
-        <label class="option"><checkbox value="{{idx}}" /> {{item}}</label>
-      </block>
+      <checkbox-group bindchange="onMultipleChange">
+        <block wx:for="{{current.options}}" wx:for-item="opt" wx:for-index="idx" wx:key="idx">
+          <label class="option"><checkbox value="{{idx}}" /> {{opt}}</label>
+        </block>
+      </checkbox-group>
     </block>
     <block wx:if="{{current.type==='judgment'}}">
       <radio-group bindchange="onSelect">
@@ -28,7 +30,12 @@
 
   <view class="controls">
     <button bindtap="prev">上一题</button>
+    <button bindtap="submitAnswer">提交本题</button>
     <button bindtap="next">下一题</button>
+  </view>
+
+  <view style="margin-top:12px;">
+    <button bindtap="finishQuiz">完成并评分</button>
   </view>
 
   <view class="status">{{statusText}}</view>
